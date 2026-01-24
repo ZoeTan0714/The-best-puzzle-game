@@ -17,6 +17,8 @@ h1 {
 
 section {
     display: flex;
+    align-items: center;
+    gap: 20px;
 }
 
 button {
@@ -26,4 +28,17 @@ button {
   border: 0;
   color: #ffffff;
   font-weight: 500;
+}
+
+.gamearea {
+  position: relative;
+  width: 360px;
+  height: 360px;
+  border: 2px solid #000;
+  background: #f4f4f4;
+}
+
+.piece {
+  /*styling of the puzzle*/
+  position: absolute;
 }

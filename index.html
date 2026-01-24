@@ -7,22 +7,35 @@
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-    <h1>Welcome to Zoe's Puzzle game</h1>
+    <h1>The world's best puzzle game</h1>
 
     <section>
         <div id="Nav">
             <label for="difficulty">Select the difficulty Level：</label>
             <select id="difficulty" name="difficulty">
-            <option value="">Hard</option>
-            <option value="sg">Medium</option>
-            <option value="bj">Easy</option>
+                <option value="">Hard</option>
+                <option value="sg">Medium</option>
+                <option value="bj">Easy</option>
+            </select>
+        </div>
+        <div id="buttons">
+            <button id="start">Start </button>
+            <button id="new">New Game </button>
         </div>
 
-        <button id="start">Start </button>
-        <button id="new">New Game </button>
+        <div id="timer">
+            Time left: <span id="time">03:00</span>
+        </div>
     </section>
 
+<main id="gamearea">
+    <div id="puzzle">
 
+    </div>
 
+    <div id="reference">
+
+    </div>
+</main>
 </body>
 </html>
