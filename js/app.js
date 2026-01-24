@@ -18,12 +18,11 @@ let correctPiece;
 //     resetGame();
 // });
 
-
+/*-----game area on the left (container // createPuzzle() // class = grid-item)-----*/
 const container = document.getElementById("gamearea");
 let row = 3;
 let col = 3;
 let piecesize = 80; 
-
 function createPuzzle (){
 for (let i=0; i<row; i++) {
     for (let y=0; y<col; y++) {
@@ -33,14 +32,32 @@ for (let i=0; i<row; i++) {
         piece.style.backgroundSize = `${col * piecesize}px ${row * piecesize}px` ;
         piece.style.width = piecesize + "px";
         piece.style.height = piecesize + "px";
-        
         const a = y * piecesize;
         const b = i * piecesize;
         piece.style.backgroundPosition = `-${a}px -${b}px`;
         container.appendChild(piece);
-}}
+    }}
 }
-container.appendChild(piece);
+createPuzzle();
+
+/*-----empty area on the right(emptyContainer // createEmpty() // class = empty-item)-----*/
+const emptyContainer = document.getElementById("emptyarea");
+    let row = 3;
+    let col = 3;
+    let piecesize = 80; 
+function createEmpty (){
+for (let i=0; i<row; i++) {
+    for (let y=0; y<col; y++) {
+        const emptyPiece = document.createElement("div");
+        emptyPiece.className = "empty-item";
+        // emptyPiece.style.backgroundSize = `${col * piecesize}px ${row * piecesize}px` ;
+        emptyPiece.style.width = piecesize + "px";
+        emptyPiece.style.height = piecesize + "px";
+        emptyContainer.appendChild(emptyPiece);
+    }}
+};
+createEmpty ()
+
 
 // function createPuzzle() {
 //  correctPiece = 0;
