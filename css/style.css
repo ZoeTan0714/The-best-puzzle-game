@@ -38,23 +38,7 @@ section {
   font-weight: 500;
 }
 
-#gamearea {
-  display: grid;
-  grid-template-columns: repeat(3, 80px);
-  grid-template-rows: repeat(3, 80px);
-  width: 260px;
-  height: 260px;
-  gap: 5px; 
-  border: 1px solid black;
-  background-color: lightgray;
-}
-
-.grid-item {
-  background-color: #f0f0f0;
-  border: 3px solid #ddd;
-} 
-
-
+#gamearea,
 #emptyarea {
   display: grid;
   grid-template-columns: repeat(3, 80px);
@@ -64,9 +48,35 @@ section {
   gap: 5px; 
   border: 1px solid black;
   background-color: lightgray;
+  padding:5px;
 }
-.empty-item {
+
+.grid-item {
+  width: 80px;
+  height: 80px;
   background-color: #f0f0f0;
   border: 3px solid #ddd;
+  cursor: pointer;
 } 
 
+.slot-item,
+.empty-item {
+  background-color: #f0f0f0;
+  border: 2px solid #ddd;
+} 
+
+.play-area {
+  display: flex;
+  gap: 50px;         
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.selected {
+  outline: 3px solid salmon;
+}
+
+#message {
+  align-items: center;
+  
+}
