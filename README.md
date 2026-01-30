@@ -1,5 +1,8 @@
 # The best puzzle game
-Background: This is a jigsaw puzzle as I am always a fun of puzzle games. You can choose different difficulty level if you want also. Here is a screenshot of how it looks like:
+
+**Background** 
+
+This is a jigsaw puzzle as I am always a fun of puzzle games. You can choose different difficulty level if you want also. Here is a screenshot of how it looks like:
 <img width="1337" height="834" alt="image" src="https://github.com/user-attachments/assets/47db754a-05c6-43c3-bc96-b0860f3c9da0" />
 
 Feel free to access through the link below: 
