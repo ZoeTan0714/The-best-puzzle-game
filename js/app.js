@@ -1,18 +1,20 @@
 /*-------------------------------- Constants --------------------------------*/
 const newButton = document.getElementById('button')
+const clock = document.getElementById('timer'); 
 
 /*---------------------------- Variables (state) ----------------------------*/
 let pieceNumber;
-// let timeLeft;
-let gameActive = false;
+let gameActive = true;
 let correctPiece = 0;
 let selectedPiece = null;
+let endTime = null;
+let rafID = null; 
 
 /*-------------------------------- Functions --------------------------------*/
 
-// newButton.addEventListener("click",()=> {
-//     resetGame();
-// });
+/*---- timer will start once window is loade */
+startTimer();
+
 
 /*-----game area on the left (container // createPuzzle() // class = grid-item)-----*/
 let row = 3;
@@ -77,6 +79,16 @@ for (let i=0; i<row; i++) {
 createPuzzle();
 
 
+/*----- style the message first------*/
+function showMessage(text) {
+    const message = document.getElementById("message");
+    message.textContent = text;
+    message.style.display = "block";
+    setTimeout(() => {
+        message.style.display = "none";
+    },2000);
+}
+
 /*-----empty area on the right(emptyContainer // createEmpty() // class = empty-item)-----*/
 const emptyContainer = document.getElementById("emptyarea");
 function createEmpty (){
@@ -109,12 +121,13 @@ for (let i=0; i<row; i++) {
                 correctPiece++; 
             
             if (correctPiece === row*col) {
-                message.textContent = "You win!"
+               showMessage ("You win!");
+                gameActive = false
             } else {
-                message.textContent = "";
+                message.style.display = "none";
             }} 
             else {
-                message.textContent = "Try again";
+                showMessage ("Try again!");
             }
         });
         emptyContainer.appendChild(emptyPiece);
@@ -123,6 +136,8 @@ for (let i=0; i<row; i++) {
 createEmpty ()
 
 
+
+/*----------- reset game------------*/
 function resetGame () {
     container.innerHTML = "";
     emptyContainer.innerHTML = "";
@@ -135,16 +150,15 @@ function resetGame () {
     createPuzzle();
     createEmpty();
 }
-newButton.addEventListener("click", resetGame);   
 
+/* ------ "new game" button ------- */
+newButton.addEventListener("click",() => {
+    resetTimer();
+    resetGame();
+    startTimer();
+});   
 
-(function() {
-  const clock = document.getElementById('timer'); 
-  const endTime = new Date().getTime() + 3*60*1000;
-
-  // store clock div to avoid repeatedly querying the DOM
-  const clock = document.getElementById('clock');
-  
+/* ----- timer -----*/ 
   function getRemainingTime(deadline) {
     const currentTime = new Date().getTime();
     return deadline - currentTime;
@@ -157,52 +171,39 @@ newButton.addEventListener("click", resetGame);
 
   // show time repeatedly
   function showTime() {
+    if (!gameActive) return;
+
     const remainingTime = getRemainingTime(endTime);
-    const seconds = pad((remainingTime / 1000) % 60);
-    const minutes = pad((remainingTime / (60 * 1000)) % 60);
-    const hours = pad((remainingTime / (60 * 60 * 1000)) % 24);
-    const days = pad(remainingTime / (24 * 60 * 60 * 1000));
 
-    clock.innerHTML = `${days}:${hours}:${minutes}:${seconds}`;
-
-    // ensure clock only updates if a second or more is remaining
-    if (remainingTime >= 1000) {
-      requestAnimationFrame(showTime);
+    if (remainingTime <= 0) {
+      clock.textContent = "00:00";
+      message.textContent = "Time's up!";
+      gameActive = false; 
+      return;
     }
-  }
-  
-  // kick it all off
-  requestAnimationFrame(showTime);
-})();
+
+    const minutes = pad((remainingTime / (60*1000)) % 60);
+    const seconds = pad((remainingTime / 1000) % 60);
+    
+    clock.textContent = `${minutes}:${seconds}`;
+    requestAnimationFrame(showTime);
+}
+
+function startTimer() {
+    if(rafID) cancelAnimationFrame(rafID);
+    endTime = new Date().getTime() + 1 * 60 * 1000; 
+    rafID = requestAnimationFrame(showTime);
+    gameActive = true;
+}
+ 
+function resetTimer () {
+    if (rafID) cancelAnimationFrame(rafID);
+    clock.textContent = "01:00";
+    rafID = null;
+    endTime = null;
+    gameActive = false;
+}
 
 
 
-
-
-// function makeDraggable (piece) {
-//     let offsetX = 0;
-//     let offsetY = 0;
-
-//     piece.addEventListener ("mousedown", (event) => {
-//         if (!gameActive) return;
-
-//         offsetX = event.offsetX;
-//         offsetY = event.offsetY;
-
-//         document.onmousemove = (moveEvent) => {
-//             piece.style.left = moveEvent.pageX - offsetX + "px";
-//             piece.style.right = moveEvent.pageY - offsetY + "px";
-//         };
-
-//         document.onmouseup = () => {
-//             document.onmouseup = null;
-//             document.onmousemove = null;
-//             checkPosition(piece);
-//         };
-//     });
-//  }
-
-
-// function startTimer() {
-//     //to start the timer
 
